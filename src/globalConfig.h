@@ -14,8 +14,10 @@
 #define CURR_ABS_MIN       60   // absolute possible lower limit for current
 #define CURR_ABS_MAX      160   // absolute possible upper limit for current
 
-#define PIN_DI              5   // GPIO5, NodeMCU pin D1
-#define PIN_RO              2   // GPIO2, NodeMCU pin D4
+//#define PIN_DI              5   // GPIO5, NodeMCU pin D1
+//#define PIN_RO              2   // GPIO2, NodeMCU pin D4
+#define PIN_DI              1   // GPIO1, NodeMCU pin TX
+#define PIN_RO              3   // GPIO3, NodeMCU pin RX
 #define PIN_DE_RE           4   // GPIO4, NodeMCU pin D2
 #define PIN_RST             0   // GPIO0, NodeMCU pin D3 
 #define PIN_PV_SWITCH      13   // GPIO0, NodeMCU pin D7 
@@ -59,7 +61,7 @@ extern uint8_t  cfgLoopDelay;                // Delay [ms] at end of main loop, 
 extern uint16_t cfgKnockOutTimer;            // Interval[min] after which wbec knocks itself out, i.e. triggers a reset, default: 0 = inactive; values < 20min not allowed
 extern char     cfgShellyIp[16];             // IP address of Shelly 3em, "" to disable 
 extern char     cfgInverterIp[16];           // IP address of Inverter, "" to disable 
-extern uint8_t  cfgInverterType;             // 0=off, 1=SolarEdge, 2=Fronius, 3=Kostal
+extern uint8_t  cfgInverterType;             // 0=off, 1=SolarEdge, 2=Fronius, 3=Kostal, 4=Sungrow
 extern uint16_t cfgInverterPort;             // Overwrite default inverter port setting
 extern uint16_t cfgInverterAddr;             // Overwrite default inverter address setting
 extern uint16_t cfgInvSmartAddr;             // Overwrite default smart meter address setting
