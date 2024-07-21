@@ -8,7 +8,7 @@
 
 const uint8_t m = 5;
 
-#define WBEC_VER(s) "v" MAJOR_VER_STRING(s) ".5.1"     // token stringification
+#define WBEC_VER(s) "v" MAJOR_VER_STRING(s) ".5.2"     // token stringification
 #define MAJOR_VER_STRING(s) #s                         // .. with two levels of macros
 
 char     cfgWbecVersion[]             = WBEC_VER(WBEC_VERSION_MAJOR); // wbec version
@@ -25,7 +25,7 @@ uint16_t cfgFailsafeCurrent;          // <don't use - still beta> Reg. 262: Fail
 char     cfgMqttIp[16];               // IP address of MQTT broker, "" to disable MQTT
 uint16_t cfgMqttPort;                 // Port of MQTT broker (optional)
 char     cfgMqttUser[32];             // MQTT: Username
-char     cfgMqttPass[32];             // MQTT: Password
+char     cfgMqttPass[128];            // MQTT: Password
 uint8_t  cfgMqttLp[WB_CNT];           // Array with assignments to openWB loadpoints, e.g. [4,2,0,1]: Box0 = LP4, Box1 = LP2, Box2 = no MQTT, Box3 = LP1
 char     cfgMqttWattTopic[60];        // MQTT: Topic for setting the watt value for PV charging, default: "wbec/pv/setWatt"
 char     cfgMqttWattJson[30];         // MQTT: Optional: Element in a JSON string, which contains the power in watt, default: ""
@@ -41,6 +41,7 @@ uint8_t  cfgPvPhFactor;               // PV charging: Power/Current factor, e.g.
 uint16_t cfgPvOffset;                 // PV charging: Offset for the available power calculation (in W); can be used to assure that no/less current is consumed from net
 uint8_t  cfgPvInvert;                 // PV charging: Invert the watt value (pos./neg.)
 uint8_t  cfgPvMinTime;                // PV charging: Minimum activation time (in minutes), 0 to disable
+uint8_t  cfgPvOffCurrent;             // PV charging: Current value which will be set, when mode changes to OFF (255 to disable)
 uint16_t cfgTotalCurrMax;             // Total current limit for load management (in 0.1A) - !! Additional fuse mandatory !!
 uint8_t  cfgHwVersion;                // Selection of the used HW
 uint8_t  cfgWifiSleepMode;            // Set sleep type for power saving, recomendation is 255 (=no influence) or 0 (=WIFI_NONE_SLEEP)
@@ -150,6 +151,7 @@ void loadConfig() {
 	cfgPvOffset               = doc["cfgPvOffset"]           | 0UL;
 	cfgPvInvert               = doc["cfgPvInvert"]           | 0L;
 	cfgPvMinTime              = doc["cfgPvMinTime"]          | 0L;
+	cfgPvOffCurrent           = doc["cfgPvOffCurrent"]       | 255;
 	cfgTotalCurrMax           = doc["cfgTotalCurrMax"]       | 0UL;
 	cfgHwVersion              = doc["cfgHwVersion"]          | 15;
 	cfgWifiSleepMode          = doc["cfgWifiSleepMode"]      | 0;
